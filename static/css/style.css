@@ -1,0 +1,144 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0px;
+    overflow: auto;
+    background-color: #216477;
+    color: white;
+    font-family: verdana;
+}
+div, select, button, input {
+    font-size: 1rem;
+}
+.home {
+    margin-top: 100px;
+    padding-bottom: 50px;
+    text-align: center;
+    font-size: 1.5rem;
+}
+.icon-link {
+    display: inline;
+    vertical-align: middle;
+    border: 2px solid transparent;
+    border-radius: 10px;
+}
+.icon-link:hover {
+    border-color: white;
+    box-shadow: 0px 0px 5px rgba(255, 255, 255, 1.0);
+}
+.icon-link:active {
+    box-shadow: inset 4px 4px 8px rgb(0, 0, 0, 0.2)
+}
+nav {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 1.5rem;
+}
+#canvas-container {
+    margin: 5px;
+    height: 600px;
+    border: 1px solid black;
+    overflow: auto;
+    background-color: white;
+    color: black;
+}
+#canvas {
+    width: 2000px;
+    height: 1500px;
+    position: relative;
+}
+.component {
+    width: 100px;
+    height: 75px;
+    background-color: lightblue;
+    position: absolute;
+    left: 50px;
+    top: 50px;
+    text-align: center;
+    cursor: move;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+.label {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, 0.2rem);
+}
+.inlet {
+    position: absolute;
+    left: 0px;
+}
+.outlet {
+    position: absolute;
+    right: 0px;
+}
+.button-edit {
+    position: absolute;
+    top: 100%;
+    left: 0%;
+    transform: translate(0%, 1.5rem);
+}
+.button-del {
+    position: absolute;
+    top: 100%;
+    left: 100%;
+    transform: translate(-100%, 1.5rem);
+}
+.form-box {
+    width: 400px;
+    position: absolute;
+    background: white;
+    border: 1px solid black;
+    padding: 10px;
+    text-align: left;
+    z-index: 2000;
+}
+.form-params {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 10px 10px;
+    max-width: 400px;
+    margin: 10px auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.outlet-overlay {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.1);
+    color: black;
+    padding: 5px 8px;
+    font-size: 0.8rem;
+    border-radius: 5px;
+    pointer-events: none;
+    white-space: nowrap;
+    margin-left: 5px;
+    z-index: 1000;
+}
+.msg-popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+}
+footer {
+    margin-top: auto;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 2px solid lightblue;
+    background-color: #1b5160;
+    color: lighgrey;
+}
+.socials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
