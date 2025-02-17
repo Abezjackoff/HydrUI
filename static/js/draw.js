@@ -218,7 +218,11 @@ document.addEventListener("DOMContentLoaded", function () {
 //        .then(() => {window.location.href = "/solve";});
         .then(response => response.json())
         .then(data => displayResults(data))
-        .catch(error => {console.error('Error:', error); showPopup('❌ Calculation Failed!\n' + 'Solver is offline', 'darkred')});
+        .catch(error => {
+            let data = { 'status': 'error', 'message': 'Solver is not responding.'};
+            displayResults(data);
+            console.error('Error:', error);
+        });
 
         let xml = '<diagram>\n';
         for (let id in components) {
@@ -254,9 +258,11 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log(data);
         if (data.status == 'success') {
             showPopup('✅ Done!', 'green');
-            for (let port in data.result) {
-                addOutletOverlays(port, data.result[port]);
-            }
+            addOutletOverlays(data.result);
+        }
+        else if (data.status == 'marginal') {
+            showPopup('⚠️ Solution Not Converged!\nReview parameters and connections.', 'darkorange');
+            addOutletOverlays(data.result);
         }
         else {
             showPopup('❌ Calculation Failed!\n' + data.message, 'darkred');
@@ -264,20 +270,22 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function addOutletOverlays(portId, res) {
-        const port = document.getElementById(portId);
-        if (!port) return;
+    function addOutletOverlays(result) {
+        for (let portId in result) {
+            const port = document.getElementById(portId);
+            if (!port) continue;
 
-        const overlayId = `${portId}.Data`;
-        let overlay = document.getElementById(overlayId);
-        if (!overlay) {
-            overlay = document.createElement('div');
-            overlay.id = overlayId;
-            overlay.classList.add('outlet-overlay');
-            port.appendChild(overlay);
+            const overlayId = `${portId}.Data`;
+            let overlay = document.getElementById(overlayId);
+            if (!overlay) {
+                overlay = document.createElement('div');
+                overlay.id = overlayId;
+                overlay.classList.add('outlet-overlay');
+                port.appendChild(overlay);
+            }
+            overlay.innerHTML = result[portId];
+            results.push(overlay);
         }
-        overlay.innerHTML = res;
-        results.push(overlay);
     }
 
     function removeOutletOverlays() {

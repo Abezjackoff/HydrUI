@@ -99,8 +99,8 @@ def build_and_solve(diagramData):
 
     p0 = assy.get_avg_pressure()
     assy.set_init_pressure(p0)
-    assy.solve()
-    return get_port_states(assy)
+    x, ok = assy.solve()
+    return get_port_states(assy), ok
 
 def get_port_states(assy):
     states = {}
@@ -119,8 +119,11 @@ def run_solver(diagramData):
     message = ''
     result = {}
     try:
-        result = build_and_solve(diagramData)
-        status = 'success'
+        result, ok = build_and_solve(diagramData)
+        if ok:
+            status = 'success'
+        else:
+            status = 'marginal'
     except Exception as e:
         message = str(e)
         print('Error in hydraulics model or solver: ' + message)

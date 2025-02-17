@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request, jsonify, session
+from flask import Flask, render_template, redirect, url_for, request, jsonify, make_response, session
 import secrets
 import json
 from hydraulics.diagram_handler import run_solver
@@ -32,10 +32,15 @@ def solve():
                             'message': message,
                             'result': result})
         except json.JSONDecodeError:
-            return jsonify(data={'status': 'error', 'message': 'Invalid JSON'},
-                           statusCode=400)
+            status = 'error'
+            session['diagram'] = None
+            session['status'] = status
+            session['result'] = None
+            return make_response(jsonify({'status': status, 'message': 'Invalid JSON'}), 400)
     else:
         return jsonify({'status': session.get('status'),
                         'diagram': session.get('diagram'),
                         'result': session.get('result')})
 
+if __name__ == '__main__':
+    app.run()
