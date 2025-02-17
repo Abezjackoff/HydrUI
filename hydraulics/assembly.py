@@ -177,7 +177,7 @@ class HydraulicAssembly:
         elif (len(x0) < len(y)):
             for i in range(len(y) - len(x0)):
                 x0.append(0.)
-        x, info, ier, msg = fsolve(self.qp_balance, x0, full_output=True)
+        x, info, ier, msg = fsolve(self.qp_balance, x0, xtol=1e-6, full_output=True)
         self.set_states_val(x)
         return x, ier == 1
 

@@ -13,8 +13,6 @@ class CentrifugalPump(HydraulicBlock):
                        BlockState(HydraulicQuantity.P,'p_out')]
         self.ports = [BlockPort('inlet', 0, 1),
                       BlockPort('outlet', 0, 2)]
-        self.n_in = 1
-        self.n_out = 1
         self.qData = np.array(q)
         self.pData = np.array(p)
         self._speedPct = 0

@@ -17,8 +17,15 @@ def create_resi(params):
 def create_valve(params):
     flow = read_param_values(params, 'FlowRate', [0, 0])
     pres = read_param_values(params, 'PressureDrop', [0, 0])
-    pos = read_param_values(params, 'ValveOpeningPct', [0])[0]
-    block = loads.HydraulicResistance(flow, pres)
+    open = read_param_values(params, 'ValveOpeningPct', [0])[0]
+    block = loads.HydraulicValve(flow, pres)
+    block.set_openPct(open)
+    return block
+
+def create_pipe(params):
+    d = read_param_values(params, 'InnerDiameter', [0])[0]
+    l = read_param_values(params, 'PipeLength', [0])[0]
+    block = loads.HydraulicPipe(d, l)
     return block
 
 def create_split(params):
@@ -35,12 +42,13 @@ def create_reservoir(params):
     return block
 
 blockTypeDict = {
-    'Pump': {'n_in': 1, 'n_out': 1, 'createFunc': create_pump},
-    'Resistance' : {'n_in': 1, 'n_out': 1, 'createFunc': create_resi},
-    'Valve': {'n_in': 1, 'n_out': 1, 'createFunc': create_valve},
-    'Splitter': {'n_in': 1, 'n_out': 2, 'createFunc': create_split},
-    'Mixer': {'n_in': 2, 'n_out': 1, 'createFunc': create_mixer},
-    'Reservoir': {'n_in': 1, 'n_out': 1, 'createFunc': create_reservoir}
+    'Pump':         {'n_in': 1, 'n_out': 1, 'createFunc': create_pump},
+    'Resistance' :  {'n_in': 1, 'n_out': 1, 'createFunc': create_resi},
+    'Valve':        {'n_in': 1, 'n_out': 1, 'createFunc': create_valve},
+    'Pipe':         {'n_in': 1, 'n_out': 1, 'createFunc': create_pipe},
+    'Splitter':     {'n_in': 1, 'n_out': 2, 'createFunc': create_split},
+    'Mixer':        {'n_in': 2, 'n_out': 1, 'createFunc': create_mixer},
+    'Reservoir':    {'n_in': 1, 'n_out': 1, 'createFunc': create_reservoir}
 }
 
 def create_block(blockType, params):

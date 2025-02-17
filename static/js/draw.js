@@ -23,9 +23,17 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         "Valve": {
             parameters: [
-                {label: "Flow Rate, lpm",       id: "FlowRate",     fallback: "0, 1"},
-                {label: "Pressure Drop, kPa",   id: "PressureDrop", fallback: "0, 0"},
+                {label: "Flow Rate, lpm",       id: "FlowRate",     fallback: "0, 0"},
+                {label: "Pressure Drop, kPa",   id: "PressureDrop", fallback: "0, 1"},
                 {label: "Valve Opening, %",     id: "ValveOpeningPct", fallback: "100"}
+            ],
+            inlets: 1,
+            outlets: 1
+        },
+        "Pipe": {
+            parameters: [
+                {label: "Inner Diameter, m",    id: "InnerDiameter", fallback: "1"},
+                {label: "Pipe Length, m",       id: "PipeLength", fallback: "0"}
             ],
             inlets: 1,
             outlets: 1
