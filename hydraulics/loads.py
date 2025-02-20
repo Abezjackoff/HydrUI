@@ -80,7 +80,7 @@ class HydraulicValve(HydraulicBlock):
 class HydraulicPipe(HydraulicBlock):
     def __init__(self, d, l):
         if d <= 0:
-            raise Exception("Inner diameter shall be positive.")
+            raise Exception("Pipe diameter shall be positive.")
         if l < 0:
             raise Exception("Pipe length shall be non-negative.")
         super().__init__(1, 1)

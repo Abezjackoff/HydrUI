@@ -153,7 +153,11 @@ document.addEventListener("DOMContentLoaded", function () {
         // Make the INLET port a TARGET
         inlets.forEach(inlet => jsPlumbInstance.addEndpoint(inlet, targetEndPoint));
 
-        components[id] = { type: type, parameters: {}, connections: [] };
+        paramDefaults = {};
+        componentTypes[type].parameters.forEach(param => {
+            paramDefaults[param.id] = param.fallback;
+        });
+        components[id] = { type: type, parameters: paramDefaults, connections: [] };
     }
 
     function editComponent(id, type) {
@@ -178,7 +182,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const predefinedParams = componentTypes[type].parameters;
         let formHTML = "Enter parameters:<div class='form-params'>";
         predefinedParams.forEach(param => {
-            const currentValue = components[id].parameters[param.id] || param.fallback;
+            const currentValue = components[id].parameters[param.id] || '';
             formHTML += `<label for='${param.id}'>${param.label}</label>`;
             formHTML += `<input style='min-width: 0;' type='text' id='${param.id}' value='${currentValue}'/>`;
         });
