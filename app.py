@@ -4,8 +4,10 @@ import json
 from hydraulics.diagram_handler import run_solver
 
 app = Flask(__name__)
-
+app.debug = False
+app.testing = False
 app.secret_key = secrets.token_urlsafe(16)
+
 
 @app.route('/')
 def index():
